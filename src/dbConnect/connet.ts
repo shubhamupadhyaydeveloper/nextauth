@@ -1,5 +1,4 @@
 import mongoose,{Connection} from "mongoose";
-
 let cashedConnection:Connection | null
 
 export async function connectToMongodb() {

@@ -17,3 +17,8 @@ export type TsignUpApi =  {
     email : string,
     password : string
 }
+
+export type TloginApi = {
+    password : string,
+    email : string
+}

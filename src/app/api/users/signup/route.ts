@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
 
       const newUser = new User({
          username,
-         email,
+         email, 
          password: hashedPassword
       })
 
