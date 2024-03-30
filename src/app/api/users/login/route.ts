@@ -4,8 +4,15 @@ import bcryptjs from 'bcryptjs'
 import User from '@/models/user.model'
 import jwt from 'jsonwebtoken'
 import { connectToMongodb } from '@/dbConnect/connet'
+import mongoose from 'mongoose'
+
 // mongo db connection
 connectToMongodb()
+
+export type tokenData = {
+    userId : mongoose.Types.ObjectId,
+    email : string
+}
 
 export async function POST(request: NextRequest) {
     try {
@@ -22,8 +29,8 @@ export async function POST(request: NextRequest) {
         const verifyPassword =  await bcryptjs.compare(password , user?.password ||  '')
         if(!verifyPassword) return NextResponse.json({error : "Invalid password"},{status : 400})
 
-        const jwtData = {
-            user: user?._id,
+        const jwtData:tokenData = {
+            userId: user?._id,
             email: user?.email
         }
 
