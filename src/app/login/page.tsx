@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {useForm,FieldValues} from 'react-hook-form'
+import { useRouter } from "next/navigation"
 import { z} from 'zod'
 import { loginZodScheam } from "@/utils/datavalidation"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -21,6 +22,7 @@ const Login = () => {
   const {register,handleSubmit,formState :{errors,isSubmitting},reset} = useForm<z.infer<typeof loginZodScheam>>({
     resolver : zodResolver(loginZodScheam)
   })
+  const router = useRouter()
 
   const handleFormSubmit = async (data:FieldValues) => {
      // api 
@@ -36,6 +38,7 @@ const Login = () => {
        toast.error(response.error)
      } else {
        toast.success('login Successful')
+       router.push('/')
      }
       reset()
   }
