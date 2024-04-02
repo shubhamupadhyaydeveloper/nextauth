@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       if (!username || !email || !password) return NextResponse.json({ error: "Value is missing in signupapi" }, { status: 400 })
 
       const user = await User.findOne({ email })
-      if (user) return NextResponse.json({ message: "user already exist" }, { status: 409 })
+      if (user) return NextResponse.json({ error: "user already exist" }, { status: 409 })
 
       const salt = await bcryptjs.genSalt(10)
       const hashedPassword = await bcryptjs.hash(password, salt)

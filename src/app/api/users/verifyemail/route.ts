@@ -5,10 +5,10 @@ import { connectToMongodb } from '@/dbConnect/connet'
 // mongodb connection
 connectToMongodb()
 
-export async function GET(request:NextRequest) {
+export async function POST(request:NextRequest) {
   try {
-    const searchParams = request.nextUrl.searchParams
-    const token = searchParams.get('token')
+    const reqBody = await request.json()
+    const {token} = reqBody;
     if(!token) return NextResponse.json({error : 'Token is missing'},{status : 401})
 
     const user = await User.findOne({verifyToken : token,verifyTokenExpiry : {$gt : Date.now()}})
